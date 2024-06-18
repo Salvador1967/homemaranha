@@ -1,22 +1,22 @@
 import React, { useState } from 'react';
-import { Form, Button } from 'react-bootstrap';
+import { Form, Button } from '';
 import { v4 as uuidv4 } from 'uuid';
 
-const BookForm = (props) => {
-  const [book, setBook] = useState({
-    bookname: props.book ? props.book.bookname : '',
-    author: props.book ? props.book.author : '',
-    quantity: props.book ? props.book.quantity : '',
-    price: props.book ? props.book.price : '',
-    date: props.book ? props.book.date : ''
+const contatoForm = (props) => {
+  const [contato, setContato] = useState({
+    nome: props.contato ? props.contato.nome : '',
+    email: props.contato ? props.contato.email : '',
+    telefone: props.contato ? props.contatotelefone : '',
+    datanascimento: props.contato ? props.contato.datanascimento : ''
   });
 
   const [errorMsg, setErrorMsg] = useState('');
-  const { bookname, author, price, quantity } = book;
+  const { nome, email, telefone, datanascimento } = contato;
 
+ // quando enviar o formulário chama essa função
   const handleOnSubmit = (event) => {
     event.preventDefault();
-    const values = [bookname, author, price, quantity];
+    const values = [nome, email, telefone, datanascimento];
     let errorMsg = '';
 
     const allFieldsFilled = values.every((field) => {
@@ -25,15 +25,14 @@ const BookForm = (props) => {
     });
 
     if (allFieldsFilled) {
-      const book = {
+      const contato = {
         id: uuidv4(),
-        bookname,
-        author,
-        price,
-        quantity,
-        date: new Date()
+        nome,
+        email,
+        telefone,
+        datanascimento,
       };
-      props.handleOnSubmit(book);
+      props.handleOnSubmit(contato);
     } else {
       errorMsg = 'Please fill out all the fields.';
     }
@@ -41,28 +40,28 @@ const BookForm = (props) => {
   };
 
   const handleInputChange = (event) => {
-    const { name, value } = event.target;
-    switch (name) {
+    const { nome, value } = event.target;
+    switch (nome) {
       case 'quantity':
         if (value === '' || parseInt(value) === +value) {
-          setBook((prevState) => ({
+          setcontato((prevState) => ({
             ...prevState,
-            [name]: value
+            [nome]: value
           }));
         }
         break;
       case 'price':
         if (value === '' || value.match(/^\d{1,}(\.\d{0,2})?$/)) {
-          setBook((prevState) => ({
+          setcontato((prevState) => ({
             ...prevState,
-            [name]: value
+            [nome]: value
           }));
         }
         break;
       default:
-        setBook((prevState) => ({
+        setcontato((prevState) => ({
           ...prevState,
-          [name]: value
+          [nome]: value
         }));
     }
   };
@@ -71,47 +70,47 @@ const BookForm = (props) => {
     <div className="main-form">
       {errorMsg && <p className="errorMsg">{errorMsg}</p>}
       <Form onSubmit={handleOnSubmit}>
-        <Form.Group controlId="name">
-          <Form.Label>Book Name</Form.Label>
+        <Form.Group controlId="nome">
+          <Form.Label>contato nome</Form.Label>
           <Form.Control
             className="input-control"
-            type="text"
-            name="bookname"
-            value={bookname}
-            placeholder="Enter name of book"
+            type="nome"
+            name="nome"
+            value={nome}
+            placeholder="Enter nome of contato"
             onChange={handleInputChange}
           />
         </Form.Group>
-        <Form.Group controlId="author">
-          <Form.Label>Book Author</Form.Label>
+        <Form.Group controlId="nome">
+          <Form.Label>telefone</Form.Label>
           <Form.Control
             className="input-control"
-            type="text"
-            name="author"
-            value={author}
-            placeholder="Enter name of author"
+            type="email"
+            name="email"
+            value={email}
+            placeholder="Enter name of email"
             onChange={handleInputChange}
           />
         </Form.Group>
-        <Form.Group controlId="quantity">
+        <Form.Group controlId="telefone">
           <Form.Label>Quantity</Form.Label>
           <Form.Control
             className="input-control"
             type="number"
-            name="quantity"
+            name="telefone"
             value={quantity}
-            placeholder="Enter available quantity"
+            placeholder="Enter available telefone"
             onChange={handleInputChange}
           />
         </Form.Group>
-        <Form.Group controlId="price">
-          <Form.Label>Book Price</Form.Label>
+        <Form.Group controlId="datanasacimento">
+          <Form.Label>datanascimento</Form.Label>
           <Form.Control
             className="input-control"
-            type="text"
-            name="price"
-            value={price}
-            placeholder="Enter price of book"
+            type="datanascimento"
+            name=" datanascimento"
+            value={datanascimento}
+            placeholder="Enter datanascimento of contato"
             onChange={handleInputChange}
           />
         </Form.Group>
@@ -123,4 +122,4 @@ const BookForm = (props) => {
   );
 };
 
-export default BookForm;
+export default ContatoForm;
